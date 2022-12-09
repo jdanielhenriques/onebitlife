@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Header } from "@react-navigation/stack";
 
 import Start from "../Pages/start";
+import AppExplanation from "../Pages/AppExplanation";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,10 @@ export default function AllPages() {
           headerShown: false,
         }}
       >
+        <Stack.Screen
+          name='AppExplanation'
+          component={AppExplanation}
+        />
         <Stack.Screen
           name='Start'
           component={Start}

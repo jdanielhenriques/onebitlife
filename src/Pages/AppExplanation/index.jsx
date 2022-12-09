@@ -1,32 +1,31 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-} from "react-native-gesture-handle";
-
+import { View, Text, StyleSheet, ScrollView } from "react-native";
+import DefaultButton from "../../Components/Common/DefaultButton";
+import ExplanationCard from "../../Components/Common/Explanation";
 export default function AppExplanation() {
   function handleSetShowHome() {
     console.log("Botão clicado!");
   }
   return (
     <View style={styles.container}>
-      <ScrollView style={{ alignItems: "center" }}>
-        <Text style={styles.title}>Antes, deixa{"\n"}eu te explicar...</Text>
-        <Text style={styles.descriptionCta}>
-          Pronto(a) para subir de nível na vida?
-        </Text>
-        <Text style={styles.description}>
-          Na próxima tela você vai poder escolher{"\n"}seus 4 hábitos de forma
-          individual.
-        </Text>
-        <DefaultButton
-          buttonText={"Continuar"}
-          handlePress={handleSetShowHome}
-          width={250}
-          height={50}
-        />
+      <ScrollView>
+        <View style={{ alignItems: "center" }}>
+          <Text style={styles.title}>Antes, deixa{"\n"}eu te explicar...</Text>
+          <ExplanationCard />
+          <Text style={styles.descriptionCta}>
+            Pronto(a) para subir de nível na vida?
+          </Text>
+          <Text style={styles.description}>
+            Na próxima tela você vai poder escolher{"\n"}seus 4 hábitos de forma
+            individual.
+          </Text>
+          <DefaultButton
+            buttonText={"Continuar"}
+            handlePress={handleSetShowHome}
+            width={250}
+            height={50}
+          />
+        </View>
       </ScrollView>
     </View>
   );
