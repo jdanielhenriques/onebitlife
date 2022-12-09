@@ -20,6 +20,8 @@ export default function DefaultButton({
 
 const styles = StyleSheet.create({
   button: {
+	width: 200,
+	height: 60,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,

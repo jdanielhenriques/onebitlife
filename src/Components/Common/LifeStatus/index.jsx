@@ -8,25 +8,24 @@ export default function LifeStatus() {
     <View styles={styles.container}>
       <Lottie
         source={require("../../../assets/education/education-100.json")}
-        autoPlay
-        loop
+        autoPlay={true}
+        loop={true}
         style={styles.educacaoAnimacao}
       />
       <Lottie
         source={require("../../../assets/money/money-100.json")}
-        autoPlay
-        loop
+        autoPlay={true}
+        loop={true}
         style={styles.financasAnimacao}
       />
       <Lottie
         source={require("../../../assets/robot/robot-100-100.json")}
-        autoPlay
-        loop
+        autoPlay={true}
+        loop={true}
         style={styles.roboAnimacao}
       />
     </View>
   );
-
 }
 
 const styles = StyleSheet.create({
