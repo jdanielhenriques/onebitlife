@@ -1,24 +1,24 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-import Lottie from "lottie-react-native";
+import LottieView from "lottie-react-native";
 
 export default function LifeStatus() {
   return (
-    <View styles={styles.container}>
-      <Lottie
+    <View style={styles.container}>
+      <LottieView
         source={require("../../../assets/education/education-100.json")}
         autoPlay={true}
         loop={true}
         style={styles.educacaoAnimacao}
       />
-      <Lottie
+      <LottieView
         source={require("../../../assets/money/money-100.json")}
         autoPlay={true}
         loop={true}
         style={styles.financasAnimacao}
       />
-      <Lottie
+      <LottieView
         source={require("../../../assets/robot/robot-100-100.json")}
         autoPlay={true}
         loop={true}
@@ -33,22 +33,24 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
   },
+
   roboAnimacao: {
     width: 190,
     marginTop: 30,
-    marginLeft: 0,
+    marginLeft: 25,
   },
 
   educacaoAnimacao: {
     width: 100,
     marginTop: 50,
-    marginLeft: -20,
+    marginLeft: 5,
     position: "absolute",
   },
+
   financasAnimacao: {
     width: 100,
     marginTop: 50,
-    marginLeft: 75,
+    marginLeft: 95,
     position: "absolute",
   },
 });
