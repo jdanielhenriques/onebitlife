@@ -5,7 +5,7 @@ import ExplanationCard from "../../Components/Common/Explanation";
 import {useNavigation} from "@react-navigation/native";
 export default function AppExplanation() {
   const navigation =useNavigation();
-  
+
   function handleNavHome() {
 
     navigation.navigate("Home");

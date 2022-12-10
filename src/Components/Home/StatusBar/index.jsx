@@ -26,7 +26,7 @@ export default function StatusBar() {
           style={styles.icon}
         />
         <ProgressBar
-          progress={1}
+          progress={0}
           color={"#85BB65"}
           style={styles.progress}
         />
@@ -38,7 +38,7 @@ export default function StatusBar() {
           style={styles.icon}
         />
         <ProgressBar
-          progress={1}
+          progress={0}
           color={"#FF0043"}
           style={styles.progress}
         />
@@ -50,7 +50,7 @@ export default function StatusBar() {
           style={styles.icon}
         />
         <ProgressBar
-          progress={1}
+          progress={0}
           color={"#FE7F23"}
           style={styles.progress}
         />
