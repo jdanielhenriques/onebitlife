@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
+  Alert,
   View,
   Text,
-    StyleSheet,
+  StyleSheet,
   Image,
   TouchableOpacity,
   ScrollView,
@@ -12,7 +13,9 @@ import SelectHabit from "../../Components/HabitPage/SelectHabit";
 import SelectFrequency from "../../Components/HabitPage/SelectFrequency";
 import Notification from "../../Components/HabitPage/Notification";
 import TimeDatePicker from "../../Components/HabitPage/TimeDatePicker";
-
+import UpdatexcludeButtons from "../../Components/HabitPage/UpdateExcludeButtons";
+import DefaultButton from "../../Components/Common/DefaultButton";
+  
 export default function HabitPage({ route }) {
   const navigation = useNavigation();
   const [habitInput, setHabitInput] = useState();
@@ -22,6 +25,38 @@ export default function HabitPage({ route }) {
   const [timeNotification, setTimeNotification] = useState();
 
   const { create, habit } = route.params;
+
+  function handleCreateHabit() {
+    if (habitInput === undefined || frequencyInput === undefined) {
+      Alert.alert(
+        "Você precisa selecionar um hábito e frequência para continuar"
+      );
+    } else if (
+      notificationToggle === true &&
+      frequencyInput === "Diário" &&
+      timeNotification === undefined
+    ) {
+      Alert.alert("Você precisa dizer o horário da notificação");
+    } else if (notificationToggle===true && 
+      frequencyInput === "Diário" &&
+      dayNotification === undefined &&
+      timeNotification === undefined) {
+        Alert.alert("Você precisa dizer o horário e a frequência da notificação")
+      } else {
+        navigation.navigate("Home", {createHabit: `Criado em ${habit?.habitArea}`})
+      }
+  }
+
+  function HandleUpdateHabit(){
+    if(notificationToggle === true && !dayNotification && !timeNotification){
+      Alert.alert("Você precisa colocar o horário e a frequência da notificação")
+    } else {
+      navigation.navigate("Home", {
+        updateHabit: `Atualizado em ${habit?.habitArea}`,
+      });
+    }
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -70,6 +105,23 @@ export default function HabitPage({ route }) {
                 />
               )
             ) : null}
+
+            {create === false ? (
+              <UpdatexcludeButtons
+                handleUpdate={HandleUpdateHabit}
+                habitArea={habitArea}
+                habitInput={habitInput}
+              />
+            ) : (
+              <View style={styles.configButton}>
+                <DefaultButton
+                  buttonText={"Criar"}
+                  handlePress={handleCreateHabit}
+                  width={250}
+                  height={50}
+                />
+              </View>
+            )}
           </View>
         </View>
       </ScrollView>
