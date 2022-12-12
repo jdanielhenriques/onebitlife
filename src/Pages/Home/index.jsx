@@ -1,14 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
+import HabitsService from "../../Services/HabitsService";
 
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import LifeStatus from "../../Components/Common/LifeStatus";
 import CreateHabit from "../../Components/Home/CreateHabit";
 import EditHabit from "../../Components/Home/EditHabit";
 import StatusBar from "../../Components/Home/StatusBar";
-import ChangeNavigationService from "../../Services/ChangeNavigationService"
+import ChangeNavigationService from "../../Services/ChangeNavigationService";
 
-export default function Home({route}) {
+export default function Home({ route }) {
   const navigation = useNavigation();
   const [mindHabit, setMindHabit] = useState();
   const [moneyHabit, setMoneyHabit] = useState();
@@ -19,6 +20,19 @@ export default function Home({route}) {
   const today = new Date();
 
   useEffect(() => {
+    HabitsService.findByArea("Mente").then((mind) => {
+      setMindHabit(mind[0]);
+    });
+    HabitsService.findByArea("Financeiro").then((money) => {
+      setMoneyHabit(money[0]);
+    });
+    HabitsService.findByArea("Corpo").then((body) => {
+      setBodyHabit(body[0]);
+    });
+    HabitsService.findByArea("Humor").then((fun) => {
+      setFunHabit(fun[0]);
+    });
+
     ChangeNavigationService.checkShowHome(1)
       .then((showHome) => {
         const formDate = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
@@ -37,16 +51,17 @@ export default function Home({route}) {
     <View style={styles.container}>
       <ScrollView>
         <View style={{ alignItems: "center" }}>
-          <Text style={styles.dailyChecks}>❤️ {robotDaysLife} {robotDaysLife === "01" ? "dia" : "dias"} - ✔️ 80 checks  </Text>
+          <Text style={styles.dailyChecks}>
+            ❤️ {robotDaysLife} {robotDaysLife === "01" ? "dia" : "dias"} - ✔️ 80
+            checks{" "}
+          </Text>
 
           <LifeStatus />
           <StatusBar />
 
           {mindHabit ? (
             <EditHabit
-              habit={mindHabit?.habitName}
-              frequency={`${mindHabit?.habitTime} - ${mindHabit?.habitFrequency}`}
-              habitArea={mindHabit?.habitArea}
+              habit={mindHabit}
               checkColor='#90B7F3'
             />
           ) : (
@@ -58,9 +73,7 @@ export default function Home({route}) {
 
           {moneyHabit ? (
             <EditHabit
-              habit={moneyHabit?.habitName}
-              frequency={`${moneyHabit?.habitTime} - ${moneyHabit?.habitFrequency}`}
-              habitArea={moneyHabit?.habitArea}
+              habit={moneyHabit}
               checkColor='#85BB65'
             />
           ) : (
@@ -72,9 +85,7 @@ export default function Home({route}) {
 
           {bodyHabit ? (
             <EditHabit
-              habit={bodyHabit?.habitName}
-              frequency={`${bodyHabit?.habitTime} - ${bodyHabit?.habitFrequency}`}
-              habitArea={bodyHabit?.habitArea}
+              habit={bodyHabit}
               checkColor='#FF0044'
             />
           ) : (
@@ -86,9 +97,7 @@ export default function Home({route}) {
 
           {funHabit ? (
             <EditHabit
-              habit={funHabit?.habitName}
-              frequency={`${funHabit?.habitTime} - ${funHabit?.habitFrequency}`}
-              habitArea={funHabit?.habitArea}
+              habit={funHabit}
               checkColor='#FE7F23'
             />
           ) : (
