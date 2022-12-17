@@ -1,12 +1,12 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import HabitsService from "../../Services/HabitsService";
+import { useNavigation } from "@react-navigation/native";
 
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import LifeStatus from "../../Components/Common/LifeStatus";
+import StatusBar from "../../Components/Home/StatusBar";
 import CreateHabit from "../../Components/Home/CreateHabit";
 import EditHabit from "../../Components/Home/EditHabit";
-import StatusBar from "../../Components/Home/StatusBar";
 import ChangeNavigationService from "../../Services/ChangeNavigationService";
 
 export default function Home({ route }) {
@@ -18,6 +18,7 @@ export default function Home({ route }) {
 
   const [robotDaysLife, setRobotDaysLife] = useState();
   const today = new Date();
+  const excludeArea = route.params?.excludeArea;
 
   useEffect(() => {
     HabitsService.findByArea("Mente").then((mind) => {
@@ -33,11 +34,29 @@ export default function Home({ route }) {
       setFunHabit(fun[0]);
     });
 
+    if (excludeArea) {
+      console.log(`ExcludeArea: ${excludeArea}`);
+      if (excludeArea == "Mente") {
+        setMindHabit(null);
+      }
+      if (excludeArea == "Financeiro") {
+        setMoneyHabit(null);
+      }
+      if (excludeArea == "Corpo") {
+        setBodyHabit(null);
+      }
+      if (excludeArea == "Humor") {
+        setFunHabit(null);
+      }
+    }
+
     ChangeNavigationService.checkShowHome(1)
       .then((showHome) => {
         const formDate = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
-        const checkDays =
-          new Date(formDate) - new Date(showHome.appStartDate) + 1;
+        const checkDays = Math.floor(
+          (new Date(formDate) - new Date(showHome.appStartDate)) /
+            (3600 * 24 * 1000)
+        );
         setRobotDaysLife(checkDays.toString().padStart(2, "0"));
       })
       .catch((err) => console.log(err));

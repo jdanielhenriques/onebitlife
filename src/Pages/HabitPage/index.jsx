@@ -149,7 +149,7 @@ export default function HabitPage({ route }) {
             {create === false ? (
               <UpdatexcludeButtons
                 handleUpdate={HandleUpdateHabit}
-                habitArea={habit.abitArea}
+                habitArea={habit.habitArea}
                 habitInput={habitInput}
               />
             ) : (
