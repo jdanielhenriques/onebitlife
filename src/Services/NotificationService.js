@@ -24,34 +24,34 @@ async function createNotification(
   } else if (dayNotification === "Sábado") {
     weekDay = 7;
   }
+
+  let triggerNotification;
+
+  if (frequencyInput === "Diário") {
+    triggerNotification = {
+      hour: habitHour,
+      minute: habitMinutes,
+      repeats: true,
+    };
+  } else if (frequencyInput === "Semanal") {
+    triggerNotification = {
+      hour: habitHour,
+      minute: habitMinutes,
+      repeats: true,
+      weekday: weekDay,
+    };
+  }
+
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Lembrete de hábito",
+      body: `${habitInput}`,
+    },
+    identifier: `$habitInput`,
+    trigger: triggerNotification,
+  }).then((id) => {
+    console.log(id);
+  });
 }
-
-let triggerNotiofication;
-
-if (frequency === "Diário") {
-  triggerNotiofication = {
-    hour: habitHour,
-    minute: habitMinutes,
-    repeats: true,
-  };
-} else if (frequency === "Semanal") {
-  triggerNotification = {
-    hour: habitHour,
-    minute: habitMinutes,
-    repeats: true,
-    weekday: weekDay,
-  };
-}
-
-await Notification.scheduleNotificationAsync({
-  content: {
-    title: "Lembrete de hábito",
-    body: triggerNotiofication,
-  },
-  identifier: `$habitInput`,
-  trigger: triggerNotification,
-}).then((id) => {
-  console.log(id);
-});
 
 export default { createNotification };

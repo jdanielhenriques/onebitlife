@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import * as Notifications from "expo-notifications";
+import createNotification from "../../Services/NotificationService";
 import SelectHabit from "../../Components/HabitPage/SelectHabit";
 import SelectFrequency from "../../Components/HabitPage/SelectFrequency";
 import Notification from "../../Components/HabitPage/Notification";
@@ -17,6 +18,7 @@ import TimeDatePicker from "../../Components/HabitPage/TimeDatePicker";
 import UpdatexcludeButtons from "../../Components/HabitPage/UpdateExcludeButtons";
 import DefaultButton from "../../Components/Common/DefaultButton";
 import HabitsService from "../../Services/HabitsService";
+import NotificationService from "../../Services/NotificationService";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -64,6 +66,15 @@ export default function HabitPage({ route }) {
     ) {
       Alert.alert("Você precisa dizer o horário e a frequência da notificação");
     } else {
+      if(notificationToggle){
+        NotificationService.createNotification(
+          habitInput,
+          frequencyInput,
+          dayNotification,
+          timeNotification
+        );
+      }
+
       HabitsService.createHabit({
         habitArea: habit?.habitArea,
         habitName: habitInput,
